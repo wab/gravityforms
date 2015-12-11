@@ -111,6 +111,16 @@ class GFEntryList {
 
 		}
 
+		/**
+		 * Allow the entry list search criteria to be overridden.
+		 *
+		 * @since  1.9.14.30
+		 *
+		 * @param array $search_criteria An array containing the search criteria.
+		 * @param int $form_id The ID of the current form.
+		 */
+		$search_criteria = gf_apply_filters( array( 'gform_search_criteria_entry_list', $form_id ), $search_criteria, $form_id );
+
 		$update_message = '';
 		switch ( $action ) {
 			case 'delete' :
@@ -210,7 +220,7 @@ class GFEntryList {
 		$sort_field_meta = RGFormsModel::get_field( $form, $sort_field );
 		$is_numeric      = $sort_field_meta['type'] == 'number';
 
-		$page_size        = gf_apply_filters( 'gform_entry_page_size', $form_id, 20, $form_id );
+		$page_size        = gf_apply_filters( array( 'gform_entry_page_size', $form_id ), 20, $form_id );
 		$first_item_index = $page_index * $page_size;
 
 		if ( ! empty( $sort_field ) ) {

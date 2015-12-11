@@ -621,7 +621,7 @@ abstract class GFPaymentAddOn extends GFFeedAddOn {
 		 * @return array $submission_data
 		 */
 
-		return gf_apply_filters( 'gform_submission_data_pre_process_payment', $form['id'], $submission_data, $feed, $form, $entry );
+		return gf_apply_filters( array( 'gform_submission_data_pre_process_payment', $form['id'] ), $submission_data, $feed, $form, $entry );
 	}
 
 	protected function get_credit_card_field( $form ) {

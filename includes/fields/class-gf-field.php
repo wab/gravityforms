@@ -266,7 +266,8 @@ class GF_Field extends stdClass implements ArrayAccess {
 			if ( is_array( $value ) ) {
 				//empty if any of the inputs are empty (for inputs with the same name)
 				foreach ( $value as $input ) {
-					if ( strlen( trim( $input ) ) <= 0 ) {
+					$input = GFCommon::trim_deep( $input );
+					if ( GFCommon::safe_strlen( $input ) <= 0 ) {
 						return true;
 					}
 				}
@@ -836,10 +837,14 @@ class GF_Field extends stdClass implements ArrayAccess {
 	 */
 	public function sanitize_entry_value( $value, $form_id ) {
 
+		if ( is_array( $value ) ) {
+			return '';
+		}
+
 		//allow HTML for certain field types
 		$allow_html = $this->allow_html();
 
-		$allowable_tags = gf_apply_filters( 'gform_allowable_tags', $form_id, $allow_html, $this, $form_id );
+		$allowable_tags = gf_apply_filters( array( 'gform_allowable_tags', $form_id ), $allow_html, $this, $form_id );
 
 		// strip_tags() doesn't sanitize. It leaves inline JavaScript in attributes intact.
 		$value = wp_kses_post( $value );

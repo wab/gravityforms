@@ -730,6 +730,12 @@ function ConfirmationObj() {
         $("#gform-settings").submit();
     };
 
+    gaddon.duplicateFeed = function (id) {
+        $("#single_action").val("duplicate");
+        $("#single_action_argument").val(id);
+        $("#gform-settings").submit();
+    };
+
     function isValidJson(str) {
         try {
             JSON.parse(str);

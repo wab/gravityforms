@@ -690,7 +690,7 @@ function gformAddListItem( addButton, max ) {
         .not( ':checkbox, :radio' ).val( '' );
     $clone.find( ':checkbox, :radio' ).prop( 'checked', false );
 
-    $clone = gform.applyFilters( 'gform_list_item_pre_add', $clone );
+    $clone = gform.applyFilters( 'gform_list_item_pre_add', $clone, $group );
 
     $group.after( $clone );
 
